@@ -8,6 +8,7 @@ class Lblock {
 			[-2, 5],
 		];
 		this.token = "l";
+        this.color = 'green'
 		this.position = 1;
 	}
 
@@ -88,6 +89,7 @@ class JBlock {
 			[-2, 5],
 		];
 		this.token = "j";
+        this.color = 'blue'
 		this.position = 1;
 	}
 
@@ -168,6 +170,7 @@ class SquareBlock {
 			[-1, 4],
 		];
 		this.token = "=";
+        this.color = 'red'
 		this.position = 1;
 	}
 
@@ -194,6 +197,7 @@ class Lineblock {
 			[-3, 5],
 		];
 		this.token = "|";
+        this.color = 'orange'
 		this.position = 1;
 	}
 
@@ -279,6 +283,7 @@ class Tblock {
 			[0, 6],
 		];
 		this.token = "t";
+        this.color = 'pink'
 		this.position = 1;
 	}
 
@@ -356,6 +361,7 @@ class Sblock {
 			[-1, 6],
 		];
 		this.token = "s";
+        this.color = 'pink'
 		this.position = 1;
 	}
 
@@ -435,6 +441,7 @@ class Zblock {
 			[-1, 4],
 		];
 		this.token = "z";
+        this.color = 'yellow'
 		this.position = 1;
 	}
 

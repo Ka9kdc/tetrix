@@ -103,6 +103,7 @@ function removeRender(shape) {
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
 	cell.innerText = "";
+    cell.className = ""
 	gameState.board[shape[0]][shape[1]] = "";
 }
 
@@ -111,6 +112,7 @@ function addRender(shape) {
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
 	cell.innerText = gameState.currentBlock.token;
+    cell.className = gameState.currentBlock.color
 	gameState.board[shape[0]][shape[1]] = gameState.currentBlock.token;
 }
 
@@ -272,3 +274,4 @@ function rotate(directions) {
 		addRender(gameState.currentBlock.shape[j]);
 	}
 }
+
