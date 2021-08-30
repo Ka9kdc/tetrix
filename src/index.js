@@ -8,6 +8,12 @@
 import shapes from "./shapes";
 
 const appDiv = document.getElementById("app");
+const scoreSpan = document.getElementById("score")
+const levelSpan = document.getElementById("level")
+const lineSpan = document.getElementById("line")
+const startButton = document.getElementById("start")
+const overLayDiv = document.getElementById("overlay")
+const messageDiv = document.getElementById("Message")
 const gameState = {
 	currentBlock: {},
 };
@@ -26,6 +32,7 @@ function buildRow() {
 function buildBoard() {
 	gameState.board = [];
 	const table = document.createElement("table");
+    table.className = "border"
 	for (let i = 0; i < 20; i++) {
 		const [rowDiv, row] = buildRow();
 		gameState.board.push(row);
@@ -34,75 +41,50 @@ function buildBoard() {
 	appDiv.append(table);
 }
 
+buildBoard()
 function addBlock() {
 	const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
 	gameState.currentBlock = new chosenBlock(gameState.board[0].length);
-	// gameState.currentBlock.token = chosenBlock.token
 }
 
 function moveBlock() {
-	let tileStuck = false;
+	
 	for (let j = 0; j < 4; j++) {
 		removeRender(gameState.currentBlock.shape[j]);
+     
 	}
+    
 	for (let i = 0; i < 4; i++) {
 		gameState.currentBlock.shape[i][0]++;
 		addRender(gameState.currentBlock.shape[i]);
-		if (
-			gameState.board[gameState.currentBlock.shape[i][0] + 1] === undefined &&
-			gameState.currentBlock.shape[i][0] + 1 > 0
-		) {
-			tileStuck = true;
-		} else if (
-			gameState.board[gameState.currentBlock.shape[i][0] + 1] &&
-			!tileStuck
-		) {
-			// console.log(gameState.board[gameState.currentBlock.shape[i][0]+1][gameState.currentBlock.shape[i][1]])
-			if (
-				gameState.board[gameState.currentBlock.shape[i][0] + 1][
-					gameState.currentBlock.shape[i][1]
-				]
-			) {
-				tileStuck = true;
-				for (let j = i - 1; j > -1; j--) {
-					if (
-						gameState.currentBlock.shape[i][0] + 1 ===
-						gameState.currentBlock.shape[j][0]
-					) {
-						tileStuck = false;
-						break;
-					}
-				}
-			}
-		}
 	}
-	if (tileStuck) {
-		gameOver();
-		// clearInterval(gameState.intervalId)
-		// console.log(gameState.currentBlock.shape)
-	}
+	
 }
 
 function tick() {
-	clearRow();
-	moveBlock();
+	
+    if(gameState.currentBlock.checkBelow(gameState.board)) {
+        clearRow();
+        gameOver()
+    }
+	else moveBlock();
 }
 
 function startGame() {
-	buildBoard();
 	addBlock();
 	gameState.score = 0;
-	gameState.intervalId = setInterval(tick, 1000 / 5);
+    gameState.level = 1;
+    gameState.lines = 0;
+	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
 }
 
-startGame();
+
 
 function removeRender(shape) {
 	// console.log(shape)
 	if (shape[0] < 0 || shape[1] < 0) return;
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
-	cell.innerText = "";
     cell.className = ""
 	gameState.board[shape[0]][shape[1]] = "";
 }
@@ -111,7 +93,6 @@ function addRender(shape) {
 	if (shape[0] < 0 || shape[1] < 0) return;
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
-	cell.innerText = gameState.currentBlock.token;
     cell.className = gameState.currentBlock.color
 	gameState.board[shape[0]][shape[1]] = gameState.currentBlock.token;
 }
@@ -176,6 +157,9 @@ function moveWithArrow(directions) {
 		for (let i = 0; i < 4; i++) {
 			gameState.currentBlock.shape[i][0]--;
 		}
+        // clearInterval(gameState.intervalId)
+        // setTimeout(() => gameState.intervalId = setInterval(tick, 1000/gameState.level), 1000/gameState.level )
+       
 	}
 
 	for (let i = 0; i < 4; i++) {
@@ -183,13 +167,11 @@ function moveWithArrow(directions) {
 	}
 }
 
-// function pauseMovement(){
 
-// }
 
 document.addEventListener("keydown", function (event) {
 	event.preventDefault();
-	// console.log("hello", event.key)
+
 	const key = event.key;
 	switch (key) {
 		case "ArrowLeft":
@@ -199,16 +181,32 @@ document.addEventListener("keydown", function (event) {
 		case "ArrowUp":
 			return moveWithArrow("up");
 		case "ArrowDown":
-			return moveBlock();
+            gameState.score++
+            scoreSpan.innerText = gameState.score
+			return tick();
 		case "a":
+        case "A":
 			return rotate("left");
 
 		case "s":
+        case "S":
 			return rotate("right");
 		default:
 			break;
 	}
 });
+
+startButton.addEventListener("click", () => {
+    if(overLayDiv.className === "overlay" ){
+        overLayDiv.className = ""
+    }
+    if(startButton.innerText !== "Start"){
+        clearboard()
+    } else  {
+        startButton.innerText = "Restart"
+        startGame()
+    }
+})
 
 function clearRow() {
 	const rowsToClear = [];
@@ -229,13 +227,23 @@ function clearRow() {
 		const row = table.getElementsByTagName("tr")[rowsToClear[j]];
 		table.removeChild(row);
 		gameState.board.splice(rowsToClear[j], 1);
-		gameState.score++;
+		gameState.score += 100;
+        gameState.lines++
 	}
 	for (let j = 0; j < rowsToClear.length; j++) {
 		const [rowDiv, row] = buildRow();
 		gameState.board.unshift(row);
 		table.prepend(rowDiv);
 	}
+    scoreSpan.innerText = gameState.score
+    lineSpan.innerText = gameState.lines
+    if(gameState.lines >= gameState.level*5){
+        gameState.level++
+        levelSpan.innerText = gameState.level
+        clearInterval(gameState.intervalId)
+        gameState.intervalId = setInterval(tick, 1000/Math.ceil(gameState.level/5))
+       
+    }
 }
 
 function gameOver() {
@@ -246,20 +254,14 @@ function gameOver() {
 	}
 	if (over) {
 		clearInterval(gameState.intervalId);
+        messageDiv.innerText = "Game Over!"
+        overLayDiv.className = "overlay" 
+        startButton.innerText = "New Game"
 	} else {
 		addBlock();
 	}
 }
 
-// function test(){
-//     buildBoard()
-//     addBlock()
-// moveBlock()
-// moveBlock()
-
-// }
-
-// test()
 
 function rotate(directions) {
 	for (let j = 0; j < 4; j++) {
@@ -275,3 +277,20 @@ function rotate(directions) {
 	}
 }
 
+function clearboard(){
+    for(let i = 0; i < gameState.board.length; i++){
+        for(let j = 0; j < gameState.board[0].length; j++){
+            if(gameState.board[i][j]) removeRender([i, j])
+            
+        }
+    }
+    addBlock();
+	gameState.score = 0;
+    gameState.level = 1;
+    gameState.lines = 0
+	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
+    scoreSpan.innerText = gameState.score
+    levelSpan.innerText = gameState.level
+    lineSpan.innerText = gameState.lines
+    messageDiv.innerText = ""
+}
