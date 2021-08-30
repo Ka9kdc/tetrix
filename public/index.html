@@ -8,13 +8,21 @@
     <title>Tetris</title>
 </head>
 <body>
+    <nav>
+        <div class="nav">
+        <a href="landingPage.html">Home</a>
+        <h3>Tetris</h3>
+        <a href="index.html">Play Tetris</a>
+        </div>
+    </nav>
+    <div class="grid">
     <h1 class="title"><span class="multicolored">Tetris</span></h1>
    
     <div class="border score_box" >
     <p>Score: <span id="score">0</span></p>
     <p>Level: <span id="level">1</span></p>
     <p>Lines: <span id="line">0</span></p> 
-    <div class="overlay" id="overlay"><h1><span class="multicolored">Tetris</span></h1><button id="start"  type="button">Start</button>
+    <div class="overlay" id="overlay"><h1 class="hidden"><span class="multicolored">Tetris</span></h1><button id="start"  type="button">Start</button>
     <h3 id="Message" class="multicolored"></h3></div>
     </div>
     <div class="border multicolored_v" id="highscore">
@@ -34,6 +42,6 @@
    
     
     <div id="app" ></div>
-    <!-- <script src="components/index.js" ></script> -->
+    <!-- <script src="components/index.js" ></script> --></div>
 </body>
 </html>
