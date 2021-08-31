@@ -5,7 +5,8 @@ const lineSpan = document.getElementById("line");
 const startButton = document.getElementById("start");
 const overLayDiv = document.getElementById("overlay");
 const messageDiv = document.getElementById("Message");
-const highscoreDiv= document.getElementById("highscore")
+const homeDiv = document.getElementById("home");
+
 const gameState = {
 	currentBlock: {},
 };
@@ -181,6 +182,7 @@ document.addEventListener("keydown", function (event) {
 startButton.addEventListener("click", () => {
 	if (overLayDiv.className === "overlay") {
 		overLayDiv.className = "";
+		homeDiv.className = "hidden";
 	}
 	if (startButton.innerText !== "Start") {
 		clearboard();
@@ -188,6 +190,10 @@ startButton.addEventListener("click", () => {
 		startButton.innerText = "Restart";
 		startGame();
 	}
+});
+
+homeDiv.addEventListener("click", () => {
+	window.location = "https://ka9kdc.github.io/tetrix/";
 });
 
 function clearRow() {
@@ -238,7 +244,42 @@ function gameOver() {
 	}
 	if (over) {
 		clearInterval(gameState.intervalId);
-		messageDiv.innerText = "Game Over!";
+		let newHighscore = false;
+		for (let i = 0; i < scores.length; i++) {
+			if (gameState.score > scores[i].score) {
+				newHighscore = true;
+			}
+		}
+		if (newHighscore) {
+			homeDiv.className = "";
+			messageDiv.innerText = `Game Over! New High Score was achieved`;
+			messageDiv.style.fontSize = "2em";
+			console.log(overLayDiv.getElementsByTagName("input").length)
+			if (!overLayDiv.getElementsByTagName("input").length) {
+				const inputField = document.createElement("input");
+				inputField.type = "text";
+				inputField.name = "name";
+				inputField.placeholder = "name";
+				inputField.className = "input"
+				inputField.addEventListener("change", (event) => {
+					console.log(event.target.value);
+					gameState.name = event.target.value;
+				});
+				const submitButton = document.createElement("button");
+				submitButton.className = "input"
+				submitButton.innerText = "submit";
+				submitButton.addEventListener("click", () => {
+					updateHighScores();
+					overLayDiv.removeChild(submitButton);
+					overLayDiv.removeChild(inputField);
+				});
+				overLayDiv.append(inputField);
+				overLayDiv.append(submitButton);
+			}
+			
+		} else {
+			messageDiv.innerText = "Game Over!";
+		}
 		overLayDiv.className = "overlay";
 		startButton.innerText = "New Game";
 	} else {
@@ -267,7 +308,7 @@ function clearboard() {
 		}
 	}
 	addBlock();
-	gameState.score = 0;
+	gameState.score = 100;
 	gameState.level = 1;
 	gameState.lines = 0;
 	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
@@ -277,19 +318,35 @@ function clearboard() {
 	messageDiv.innerText = "";
 }
 
-document.getElementById("controls").addEventListener("click", () =>{
-	if(gameState.intervalId){
-		clearInterval(gameState.intervalId)
+document.getElementById("controls").addEventListener("click", () => {
+	if (gameState.intervalId) {
+		clearInterval(gameState.intervalId);
 	}
-	document.getElementById("directions").classList.remove("hidden")
-	
-})
-document.getElementById("close").addEventListener("click", ()=> {
-	if(gameState.intervalId){
+	document.getElementById("directions").classList.remove("hidden");
+});
+document.getElementById("close").addEventListener("click", () => {
+	if (gameState.intervalId) {
 		gameState.intervalId = setInterval(
 			tick,
 			1000 / Math.ceil(gameState.level / 5)
 		);
 	}
-	document.getElementById("directions").classList.add("hidden")
-})
+	document.getElementById("directions").classList.add("hidden");
+});
+
+function updateHighScores() {
+	for (let i = 0; i < scores.length; i++) {
+		if (gameState.score > scores[i].score) {
+			const entry = {
+				name: gameState.name,
+				score: gameState.score,
+			};
+			scores.splice(i, 0, entry);
+			scores.pop();
+			break;
+		}
+	}
+	localStorage.setItem("highscores", JSON.stringify(scores));
+	while (list.lastChild) list.removeChild(list.lastChild);
+	renderHighScores();
+}
