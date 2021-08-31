@@ -108,6 +108,42 @@ class Lblock extends Block {
 		}
 		return false;
 	}
+
+	checkSide(direction, board){
+		if(direction ==="left" && this.position === 1){
+			
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===1)){
+				if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 2){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===2)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 3){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===3)){
+				if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else if(direction ==="left" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else if(direction ==="right" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+		}
+		return false
+	}
 }
 
 class Jblock extends Block {
@@ -202,6 +238,42 @@ class Jblock extends Block {
 		}
 		return false;
 	}
+
+	checkSide(direction, board){
+		
+		if(direction ==="left" && this.position === 1){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===1)){
+				if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 2){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===2)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 3){
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===3)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else if(direction ==="left" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else if(direction ==="right" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+		}
+		return false
+	}
 }
 
 class Squareblock extends Block {
@@ -227,6 +299,17 @@ class Squareblock extends Block {
 		if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 		if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
 		return false;
+	}
+
+	checkSide(direction, board){
+		if(direction ==="left"){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else {
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+		}
+		return false
 	}
 }
 
@@ -256,18 +339,6 @@ class Lineblock extends Block {
 				this.shape[i][0] = this.shape[0][0];
 				this.shape[i][1] = newColumn;
 			}
-			// } else if (this.position === 3) {
-			// 	for (let i = 1; i < 4; i++) {
-			// 		let newColumn = this.shape[0][0] + i;
-			// 		this.shape[i][1] = this.shape[0][1];
-			// 		this.shape[i][0] = newColumn;
-			// 		// if (this.rowLength <= newColumn) {
-			// 		// 	outofBoundshigh++;
-			// 		// }
-			// 		// if (-1 >= newColumn) {
-			// 		// 	outofBoundslow++;
-			// 		// }
-			// 	}
 		} else if (this.position === 4) {
 			for (let i = 1; i < 4; i++) {
 				let newColumn = this.shape[0][1] - i;
@@ -282,12 +353,6 @@ class Lineblock extends Block {
 				let newColumn = this.shape[0][0] - i;
 				this.shape[i][1] = this.shape[0][1];
 				this.shape[i][0] = newColumn;
-				// if (this.rowLength <= newColumn) {
-				// 	outofBoundshigh++;
-				// }
-				// if (-1 >= newColumn) {
-				// 	outofBoundslow++;
-				// }
 			}
 		}
 		if (outofBoundshigh) {
@@ -313,6 +378,27 @@ class Lineblock extends Block {
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
 		}
 		return false;
+	}
+
+	checkSide(direction, board){
+		if((direction ==="left" && this.position%2)){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position%2)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+				if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else if(direction ==="left" ){
+			if (this.position===2 && board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (this.position===4 && board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else{
+			if (this.position===2 && board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+			if (this.position===4 && board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+		}
+		return false
 	}
 }
 
@@ -401,6 +487,40 @@ class Tblock extends Block {
 		}
 		return false;
 	}
+	checkSide(direction, board){
+		if(direction ==="left" && this.position === 1){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===1)){
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 2){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===2)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+
+		} else if(direction ==="left" && this.position === 3){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		} else  if((direction ==="right" && this.position===3)){
+			if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else if(direction ==="left" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else if(direction ==="right" && this.position === 4){
+			if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		}
+		return false
+	}
 }
 
 class Sblock extends Block {
@@ -422,7 +542,7 @@ class Sblock extends Block {
 	rotateShape() {
 		let outofBoundslow = 0;
 		let outofBoundshigh = 0;
-		if (this.position === 1) {
+		if (this.position %2) {
 			this.shape[0][0] = this.shape[1][0];
 			this.shape[0][1] = this.shape[1][1] - 1;
 			if (this.shape[0][1] < 0) outofBoundslow++;
@@ -432,7 +552,7 @@ class Sblock extends Block {
 			this.shape[3][1] = this.shape[1][1] + 1;
 			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
 		}
-		if (this.position === 4) {
+		if (this.position %2 === 0) {
 			this.shape[0][0] = this.shape[1][0] + 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -441,25 +561,7 @@ class Sblock extends Block {
 			this.shape[3][1] = this.shape[1][1] - 1;
 			if (this.shape[3][1] < 0) outofBoundslow++;
 		}
-		if (this.position === 3) {
-			this.shape[0][0] = this.shape[1][0];
-			this.shape[0][1] = this.shape[1][1] + 1;
-			this.shape[2][0] = this.shape[1][0] + 1;
-			this.shape[2][1] = this.shape[1][1];
-			this.shape[3][0] = this.shape[1][0] + 1;
-			this.shape[3][1] = this.shape[1][1] - 1;
-			if (this.shape[3][1] < 0) outofBoundslow++;
-			if (this.shape[0][1] >= this.rowLength) outofBoundshigh++;
-		}
-		if (this.position === 2) {
-			this.shape[0][0] = this.shape[1][0] - 1;
-			this.shape[0][1] = this.shape[1][1];
-			this.shape[2][0] = this.shape[1][0];
-			this.shape[2][1] = this.shape[1][1] + 1;
-			this.shape[3][0] = this.shape[1][0] + 1;
-			this.shape[3][1] = this.shape[1][1] + 1;
-			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		}
+	
 		if (outofBoundshigh) {
 			for (let i = 0; i < 4; i++) {
 				this.shape[i][1] -= outofBoundshigh;
@@ -471,32 +573,41 @@ class Sblock extends Block {
 		}
 	}
 	checkBelow(board) {
-		if (this.position === 1) {
+		if (this.position %2) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
 		}
-		if (this.position === 2) {
-			if (!board[this.shape[3][0] + 1]) return true;
-
-			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
-
-			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 3) {
-			if (!board[this.shape[3][0] + 1]) return true;
-			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
-			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
-			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 4) {
+	
+		else if (this.position%2===0) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
 		}
 		return false;
+	}
+
+	checkSide(direction, board){
+		if((direction ==="right" && this.position%2 ===0)){
+			if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+			
+		if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else  if((direction ==="left" && this.position%2 === 0)){
+				if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else if(direction ==="right"){
+			if (board[this.shape[1][0]][this.shape[1][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else{
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]-1]) return true;
+		
+		}
+		return false
 	}
 }
 
@@ -515,7 +626,6 @@ class Zblock extends Block {
 	}
 
 	rotateShape() {
-		console.log(this.position, this.shape)
 		let outofBoundslow = 0;
 		let outofBoundshigh = 0;
 		if (this.position %2) {
@@ -537,25 +647,6 @@ class Zblock extends Block {
 			this.shape[3][1] = this.shape[1][1] + 1;
 			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
 		}
-		// if (this.position === 3) {
-		// 	this.shape[0][0] = this.shape[1][0];
-		// 	this.shape[0][1] = this.shape[1][1] - 1;
-		// 	if (this.shape[0][1] < 0) outofBoundslow++;
-		// 	this.shape[2][0] = this.shape[1][0] + 1;
-		// 	this.shape[2][1] = this.shape[1][1];
-		// 	this.shape[3][0] = this.shape[1][0] + 1;
-		// 	this.shape[3][1] = this.shape[1][1] + 1;
-		// 	if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		// }
-		// if (this.position === 4) {
-		// 	this.shape[0][0] = this.shape[1][0] - 1;
-		// 	this.shape[0][1] = this.shape[1][1];
-		// 	this.shape[2][0] = this.shape[1][0];
-		// 	this.shape[2][1] = this.shape[1][1] + 1;
-		// 	this.shape[3][0] = this.shape[1][0] + 1;
-		// 	this.shape[3][1] = this.shape[1][1] + 1;
-		// 	if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		// }
 		if (outofBoundshigh) {
 			for (let i = 0; i < 4; i++) {
 				this.shape[i][1] -= outofBoundshigh;
@@ -565,7 +656,6 @@ class Zblock extends Block {
 				this.shape[i][1] += outofBoundslow;
 			}
 		}
-		console.log(this.shape)
 	}
 
 	checkBelow(board) {
@@ -581,21 +671,29 @@ class Zblock extends Block {
 
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
 		}
-		// if (this.position === 3) {
-		// 	if (!board[this.shape[3][0] + 1]) return true;
-		// 	if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
-
-		// 	if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
-		// 	if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		// }
-		// if (this.position === 1) {
-		// 	if (!board[this.shape[3][0] + 1]) return true;
-
-		// 	if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
-
-		// 	if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		// }
+	
 		return false;
+	}
+
+	checkSide(direction, board){
+		if((direction ==="left" && this.position%2 ===0)){
+			if (board[this.shape[0][0]][this.shape[0][1]-1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+			
+		if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else  if((direction ==="right" && this.position%2 === 0)){
+				if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+				if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]+1]) return true;
+		} else if(direction ==="left"){
+			if (board[this.shape[1][0]][this.shape[1][1]-1]) return true;
+			if (board[this.shape[3][0]][this.shape[3][1]-1]) return true;
+		} else{
+			if (board[this.shape[0][0]][this.shape[0][1]+1]) return true;
+			if (board[this.shape[2][0]][this.shape[2][1]+1]) return true;
+		
+		}
+		return false
 	}
 }
 

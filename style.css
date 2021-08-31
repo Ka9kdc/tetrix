@@ -18,27 +18,35 @@ td {
 	height: 25px;
 	border: 1px solid grey;
 }
+
 .light_green {
 	background-color: lightgreen;
 }
+
 .green {
 	background-color: green;
 }
+
 .orange {
 	background-color: orange;
 }
+
 .blue {
 	background-color: blue;
 }
+
 .red {
 	background-color: red;
 }
+
 .purple {
 	background-color: indigo;
 }
+
 .pink {
 	background-color: violet;
 }
+
 .yellow {
 	background-color: #ffd700;
 }
@@ -277,12 +285,15 @@ a.about_box {
 .row_one {
 	grid-row: 1;
 }
+
 .row_two {
 	grid-row: 2;
 }
+
 .row_three {
 	grid-row: 3;
 }
+
 .row_four {
 	grid-row: 4;
 }
@@ -290,9 +301,11 @@ a.about_box {
 .column_one {
 	grid-column: 1;
 }
+
 .column_two {
 	grid-column: 2;
 }
+
 .column_three {
 	grid-column: 3;
 }

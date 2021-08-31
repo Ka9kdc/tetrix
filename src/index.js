@@ -35,6 +35,7 @@ function buildBoard() {
 }
 
 buildBoard();
+
 function addBlock() {
 	const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
 	gameState.currentBlock = new chosenBlock(gameState.board[0].length);
@@ -64,10 +65,12 @@ function startGame() {
 	gameState.level = 1;
 	gameState.lines = 0;
 	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
+	moveBlock();
+	moveBlock();
+	moveBlock();
 }
 
 function removeRender(shape) {
-	// console.log(shape)
 	if (shape[0] < 0 || shape[1] < 0) return;
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
@@ -84,67 +87,42 @@ function addRender(shape) {
 }
 
 function moveWithArrow(directions) {
-	let tileStuck = false;
 	for (let j = 0; j < 4; j++) {
 		removeRender(gameState.currentBlock.shape[j]);
 	}
-	let hitwall = false;
 	if (directions === "left") {
 		for (let i = 0; i < 4; i++) {
-			if (gameState.currentBlock.shape[i][1] === 0 || hitwall) {
-				if (!hitwall) {
-					hitwall = true;
-					let pointer = i - 1;
-					while (pointer > -1) {
-						gameState.currentBlock.shape[pointer][1]++;
-						pointer--;
-					}
+			if (gameState.currentBlock.shape[i][1] === 0) {
+				let pointer = i - 1;
+				while (pointer > -1) {
+					gameState.currentBlock.shape[pointer][1]++;
+					pointer--;
 				}
+				break;
 			} else {
 				gameState.currentBlock.shape[i][1]--;
 			}
-
-			// if(gameState.board[gameState.currentBlock.shape[i][0]+1]=== undefined &&gameState.currentBlock.shape[i][0]+1 > 0 ){
-			//     // console.log("failed")
-			//    tileStuck = true
-			// }
-			// else if(gameState.board[gameState.currentBlock.shape[i][0]+1] && gameState.board[gameState.currentBlock.shape[i][0]+1][gameState.currentBlock.shape[i][1]]) {
-			//     tileStuck = true
-			//     // console.log("failed 2")
-			// }
 		}
 	} else if (directions === "right") {
 		for (let i = 0; i < 4; i++) {
 			if (
-				gameState.currentBlock.shape[i][1] === gameState.board[0].length - 1 ||
-				hitwall
+				gameState.currentBlock.shape[i][1] ===
+				gameState.board[0].length - 1
 			) {
-				if (!hitwall) {
-					hitwall = true;
-					let pointer = i - 1;
-					while (pointer > -1) {
-						gameState.currentBlock.shape[pointer][1]--;
-						pointer--;
-					}
+				let pointer = i - 1;
+				while (pointer > -1) {
+					gameState.currentBlock.shape[pointer][1]--;
+					pointer--;
 				}
+				break;
 			} else {
 				gameState.currentBlock.shape[i][1]++;
 			}
-			// if(gameState.board[gameState.currentBlock.shape[i][0]+1]=== undefined &&gameState.currentBlock.shape[i][0]+1 > 0 ){
-			//     // console.log("failed")
-			//    tileStuck = true
-			// }
-			// else if(gameState.board[gameState.currentBlock.shape[i][0]+1] && gameState.board[gameState.currentBlock.shape[i][0]+1][gameState.currentBlock.shape[i][1]]) {
-			//     tileStuck = true
-			//     // console.log("failed 2")
-			// }
 		}
 	} else if (directions === "up") {
 		for (let i = 0; i < 4; i++) {
 			gameState.currentBlock.shape[i][0]--;
 		}
-		// clearInterval(gameState.intervalId)
-		// setTimeout(() => gameState.intervalId = setInterval(tick, 1000/gameState.level), 1000/gameState.level )
 	}
 
 	for (let i = 0; i < 4; i++) {
@@ -158,9 +136,15 @@ document.addEventListener("keydown", function (event) {
 	const key = event.key;
 	switch (key) {
 		case "ArrowLeft":
-			return moveWithArrow("left");
+			if (!gameState.currentBlock.checkSide("left", gameState.board)) {
+				return moveWithArrow("left");
+			}
+			break;
 		case "ArrowRight":
-			return moveWithArrow("right");
+			if (!gameState.currentBlock.checkSide("right", gameState.board)) {
+				return moveWithArrow("right");
+			}
+			break;
 		case "ArrowUp":
 			return moveWithArrow("up");
 		case "ArrowDown":
@@ -254,19 +238,17 @@ function gameOver() {
 			homeDiv.className = "";
 			messageDiv.innerText = `Game Over! New High Score was achieved`;
 			messageDiv.style.fontSize = "2em";
-			console.log(overLayDiv.getElementsByTagName("input").length)
 			if (!overLayDiv.getElementsByTagName("input").length) {
 				const inputField = document.createElement("input");
 				inputField.type = "text";
 				inputField.name = "name";
 				inputField.placeholder = "name";
-				inputField.className = "input"
+				inputField.className = "input";
 				inputField.addEventListener("change", (event) => {
-					console.log(event.target.value);
 					gameState.name = event.target.value;
 				});
 				const submitButton = document.createElement("button");
-				submitButton.className = "input"
+				submitButton.className = "input";
 				submitButton.innerText = "submit";
 				submitButton.addEventListener("click", () => {
 					updateHighScores();
@@ -276,7 +258,6 @@ function gameOver() {
 				overLayDiv.append(inputField);
 				overLayDiv.append(submitButton);
 			}
-			
 		} else {
 			messageDiv.innerText = "Game Over!";
 		}
