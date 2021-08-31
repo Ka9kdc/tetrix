@@ -599,4 +599,4 @@ class Zblock extends Block {
 	}
 }
 
-export default [Lineblock, Lblock, Sblock, Zblock, Tblock, Squareblock, Jblock];
+const shapes = [Lineblock, Lblock, Sblock, Zblock, Tblock, Squareblock, Jblock]
