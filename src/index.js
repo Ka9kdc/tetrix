@@ -5,6 +5,7 @@ const lineSpan = document.getElementById("line");
 const startButton = document.getElementById("start");
 const overLayDiv = document.getElementById("overlay");
 const messageDiv = document.getElementById("Message");
+const highscoreDiv= document.getElementById("highscore")
 const gameState = {
 	currentBlock: {},
 };
@@ -275,3 +276,20 @@ function clearboard() {
 	lineSpan.innerText = gameState.lines;
 	messageDiv.innerText = "";
 }
+
+document.getElementById("controls").addEventListener("click", () =>{
+	if(gameState.intervalId){
+		clearInterval(gameState.intervalId)
+	}
+	document.getElementById("directions").classList.remove("hidden")
+	
+})
+document.getElementById("close").addEventListener("click", ()=> {
+	if(gameState.intervalId){
+		gameState.intervalId = setInterval(
+			tick,
+			1000 / Math.ceil(gameState.level / 5)
+		);
+	}
+	document.getElementById("directions").classList.add("hidden")
+})

@@ -105,15 +105,14 @@ table {
 	font-size: 1.5em;
 }
 
-#start {
+.buttons button{
 	font-size: 1.5em;
 	border-radius: 15px;
 	border: 5px solid grey;
-
 	width: fit-content;
 }
 
-#start:hover,
+.buttons button:hover,
 #play:hover {
 	box-shadow: inset 0px 0px 18px gray;
 }
@@ -304,4 +303,32 @@ a.about_box {
 
 p {
 	padding: 5px;
+}
+
+.two_columns{
+	height:50vh;
+	font-size: 1.3em;
+	display: grid;
+	grid-template-rows:1fr 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
+	padding:0;
+	margin:0;
+	row-gap: 0;
+
+}
+
+.two_columns h2{
+	font-size: 1.5;
+	padding: 0px;
+}
+
+.two_columns p{
+	padding: 0px;
+	margin: 0;
+	align-self: center;
+}
+
+#close{
+	align-self: flex-end;
+	margin-right: 50px;
 }

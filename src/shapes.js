@@ -600,3 +600,4 @@ class Zblock extends Block {
 }
 
 const shapes = [Lineblock, Lblock, Sblock, Zblock, Tblock, Squareblock, Jblock]
+
