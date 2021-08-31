@@ -86,6 +86,20 @@ function addRender(shape) {
 	gameState.board[shape[0]][shape[1]] = gameState.currentBlock.token;
 }
 
+function rotate(directions) {
+	for (let j = 0; j < 4; j++) {
+		removeRender(gameState.currentBlock.shape[j]);
+	}
+	if (directions === "left") {
+		gameState.currentBlock.rotateLeft();
+	} else {
+		gameState.currentBlock.rotateRight();
+	}
+	for (let j = 0; j < 4; j++) {
+		addRender(gameState.currentBlock.shape[j]);
+	}
+}
+
 function moveWithArrow(directions) {
 	for (let j = 0; j < 4; j++) {
 		removeRender(gameState.currentBlock.shape[j]);
@@ -130,55 +144,6 @@ function moveWithArrow(directions) {
 	}
 }
 
-document.addEventListener("keydown", function (event) {
-	event.preventDefault();
-
-	const key = event.key;
-	switch (key) {
-		case "ArrowLeft":
-			if (!gameState.currentBlock.checkSide("left", gameState.board)) {
-				return moveWithArrow("left");
-			}
-			break;
-		case "ArrowRight":
-			if (!gameState.currentBlock.checkSide("right", gameState.board)) {
-				return moveWithArrow("right");
-			}
-			break;
-		case "ArrowUp":
-			return moveWithArrow("up");
-		case "ArrowDown":
-			gameState.score++;
-			scoreSpan.innerText = gameState.score;
-			return tick();
-		case "a":
-		case "A":
-			return rotate("left");
-
-		case "s":
-		case "S":
-			return rotate("right");
-		default:
-			break;
-	}
-});
-
-startButton.addEventListener("click", () => {
-	if (overLayDiv.className === "overlay") {
-		overLayDiv.className = "";
-		homeDiv.className = "hidden";
-	}
-	if (startButton.innerText !== "Start") {
-		clearboard();
-	} else {
-		startButton.innerText = "Restart";
-		startGame();
-	}
-});
-
-homeDiv.addEventListener("click", () => {
-	window.location = "https://ka9kdc.github.io/tetrix/";
-});
 
 function clearRow() {
 	const rowsToClear = [];
@@ -268,20 +233,6 @@ function gameOver() {
 	}
 }
 
-function rotate(directions) {
-	for (let j = 0; j < 4; j++) {
-		removeRender(gameState.currentBlock.shape[j]);
-	}
-	if (directions === "left") {
-		gameState.currentBlock.rotateLeft();
-	} else {
-		gameState.currentBlock.rotateRight();
-	}
-	for (let j = 0; j < 4; j++) {
-		addRender(gameState.currentBlock.shape[j]);
-	}
-}
-
 function clearboard() {
 	for (let i = 0; i < gameState.board.length; i++) {
 		for (let j = 0; j < gameState.board[0].length; j++) {
@@ -299,22 +250,6 @@ function clearboard() {
 	messageDiv.innerText = "";
 }
 
-document.getElementById("controls").addEventListener("click", () => {
-	if (gameState.intervalId) {
-		clearInterval(gameState.intervalId);
-	}
-	document.getElementById("directions").classList.remove("hidden");
-});
-document.getElementById("close").addEventListener("click", () => {
-	if (gameState.intervalId) {
-		gameState.intervalId = setInterval(
-			tick,
-			1000 / Math.ceil(gameState.level / 5)
-		);
-	}
-	document.getElementById("directions").classList.add("hidden");
-});
-
 function updateHighScores() {
 	for (let i = 0; i < scores.length; i++) {
 		if (gameState.score > scores[i].score) {
@@ -331,3 +266,69 @@ function updateHighScores() {
 	while (list.lastChild) list.removeChild(list.lastChild);
 	renderHighScores();
 }
+
+document.addEventListener("keydown", function (event) {
+	event.preventDefault();
+
+	const key = event.key;
+	switch (key) {
+		case "ArrowLeft":
+			if (!gameState.currentBlock.checkSide("left", gameState.board)) {
+				return moveWithArrow("left");
+			}
+			break;
+		case "ArrowRight":
+			if (!gameState.currentBlock.checkSide("right", gameState.board)) {
+				return moveWithArrow("right");
+			}
+			break;
+		case "ArrowUp":
+			return moveWithArrow("up");
+		case "ArrowDown":
+			gameState.score++;
+			scoreSpan.innerText = gameState.score;
+			return tick();
+		case "a":
+		case "A":
+			return rotate("left");
+		case "s":
+		case "S":
+			return rotate("right");
+		default:
+			break;
+	}
+});
+
+startButton.addEventListener("click", () => {
+	if (overLayDiv.className === "overlay") {
+		overLayDiv.className = "";
+		homeDiv.className = "hidden";
+	}
+	if (startButton.innerText !== "Start") {
+		clearboard();
+	} else {
+		startButton.innerText = "Restart";
+		startGame();
+	}
+});
+
+homeDiv.addEventListener("click", () => {
+	window.location = "https://ka9kdc.github.io/tetrix/";
+});
+
+document.getElementById("controls").addEventListener("click", () => {
+	if (gameState.intervalId) {
+		clearInterval(gameState.intervalId);
+	}
+	document.getElementById("directions").classList.remove("hidden");
+});
+
+document.getElementById("close").addEventListener("click", () => {
+	if (gameState.intervalId) {
+		gameState.intervalId = setInterval(
+			tick,
+			1000 / Math.ceil(gameState.level / 5)
+		);
+	}
+	document.getElementById("directions").classList.add("hidden");
+});
