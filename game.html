@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="style.css" rel="stylesheet" />
-		<script src="src/shapes.js"></script>
-		<script src="src/highscore.js" defer></script>
-		<script src="src/index.js" defer></script>
-		<title>Tetrix</title>
-	</head>
-	<body>
-		<nav>
-			<div class="nav">
-				<a href="index.html">Home</a>
-				<a href="game.html">Play Tetrix</a>
-			</div>
-		</nav>
-		<div class="grid">
-			<h1 class="title"><span class="multicolored">Tetrix</span></h1>
 
-			<div class="border score_box">
-				<p>Score: <span id="score">0</span></p>
-				<p>Level: <span id="level">1</span></p>
-				<p>Lines: <span id="line">0</span></p>
-				<div class="overlay" id="overlay">
-					<h1 class="hidden"><span class="multicolored">Tetrix</span></h1>
-					<div class="buttons">
-						<button id="home" type="button">Home</button>
-						<button id="start" type="button">Start</button>
-						<button id="controls" type="button">Controls</button>
-					</div>
-					
-					<h3 id="Message" class="multicolored"></h3>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="style.css" rel="stylesheet" />
+	<script src="src/shapes.js"></script>
+	<script src="src/highscore.js" defer></script>
+	<script src="src/index.js" defer></script>
+	<title>Tetrix</title>
+</head>
+
+<body>
+	<nav>
+		<div class="nav">
+			<a href="index.html">Home</a>
+			<a href="game.html">Play Tetrix</a>
+		</div>
+	</nav>
+	<div class="grid">
+		<h1 class="title"><span class="multicolored">Tetrix</span></h1>
+		<div class="border score_box">
+			<p>Score: <span id="score">0</span></p>
+			<p>Level: <span id="level">1</span></p>
+			<p>Lines: <span id="line">0</span></p>
+			<div class="overlay" id="overlay">
+				<h1 class="hidden"><span class="multicolored">Tetrix</span></h1>
+				<div class="buttons">
+					<button id="home" type="button">Home</button>
+					<button id="start" type="button">Start</button>
+					<button id="controls" type="button">Controls</button>
 				</div>
-			</div>
-			<div class="border multicolored_v" id="highscore">
-				<h3>Highscores</h3>
-				<ol></ol>
-			</div>
 
-			<div id="app"></div>
-			<div id="directions" class=hidden>
-				<div class="overlay about_box buttons" >
-					<button id="close">Close</button>
-					<h1 class="title"><span class="multicolored">Tetrix</span></h1>
-					<div class="two_columns">	
-						<h2 >How to Play:</h2>
-					
-						<p>Level up by clearing rows</p>
-						<p>Fill a row to clear it.</p>
-						<h2 >Keyboard Commands:</h2>
-						<div>
-							<p>Rotate clockwise: A</p>
-							<p>Rotate counter-clockwise: S</p>
-							<p>Speed Down: Down Arrow  &#8595</p>
-						</div>
-						<div>
-							<p>Move Left: Left Arrow  &#8592</p>
-							<p>Move Right: Right Arrow  &#8594</p>
-							<p>Slow descent: Up Arrow  &#8593</p>
-						</div>
-						
-						<h2 class="column_one">How to Score:</h2>
-						<p>Clear a row: 100 points</p>
-						<p class="column_three">Speed up descent: 1 point per row skipped</p>
+				<h3 id="Message" class="multicolored"></h3>
+			</div>
+		</div>
+		<div class="border multicolored_v" id="highscore">
+			<h3>Highscores</h3>
+			<ol></ol>
+		</div>
+		<div id="app"></div>
+		<div id="directions" class="hidden multicolored_v">
+			<div class="overlay about_box buttons ">
+				<button id="close">Close</button>
+				<h1 class="title"><span class="multicolored">Tetrix</span></h1>
+				<div class="two_columns multicolored_v">
+					<div>
+						<h2>How to Play:</h2>
+						<p>Random Blocks will fall one at a time.</p>
+						<p> Falling Blocks can be rotated and moved left and right, so that they can fill in rows.</p>
+						<p> Fill a row to clear it.</p>
+						<p> You level up every time you clear 5 rows.</p>
+						<p> As you increase your level the blocks will start to fall faster.</p>
+						<p> Game will end when no more blocks can enter the board from the top of the board.</p>
+					</div>
+					<div>
+						<h2>Keyboard Commands:</h2>
+						<p>Rotate Clockwise: A</p>
+						<p>Rotate Counter-Clockwise: S</p>
+						<p>Move Left: Left Arrow &#8592</p>
+						<p>Move Right: Right Arrow &#8594</p>
+						<p>Slow Down Descent: Up Arrow &#8593</p>
+						<p>Speed Up Descent: Down Arrow &#8595</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
