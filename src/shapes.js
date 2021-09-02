@@ -1,6 +1,6 @@
 class Block {
 	constructor(rowLength) {
-		this.rowLength = rowLength;
+		this.rowLength = rowLength;	this.position = 1;
 	}
 	rotateLeft() {
 		this.position++;
@@ -21,14 +21,13 @@ class Lblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 5],
 			[0, 6],
+			[0, 5],
 			[-1, 5],
 			[-2, 5],
 		];
 		this.token = "l";
 		this.color = "box green";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -81,6 +80,7 @@ class Lblock extends Block {
 				this.shape[i][1] += outofBoundslow;
 			}
 		}
+		console.log(this.shape)
 	}
 
 	checkBelow(board) {
@@ -111,11 +111,11 @@ class Lblock extends Block {
 
 	checkSide(direction, board) {
 		if (direction === "left" && this.position === 1) {
-			if (board[this.shape[0][0]][this.shape[0][1] - 1]) return true;
+			if (board[this.shape[1][0]][this.shape[1][1] - 1]) return true;
 			if (board[this.shape[2][0]][this.shape[2][1] - 1]) return true;
 			if (board[this.shape[3][0]][this.shape[3][1] - 1]) return true;
 		} else if (direction === "right" && this.position === 1) {
-			if (board[this.shape[1][0]][this.shape[1][1] + 1]) return true;
+			if (board[this.shape[0][0]][this.shape[0][1] + 1]) return true;
 			if (board[this.shape[2][0]][this.shape[2][1] + 1]) return true;
 			if (board[this.shape[3][0]][this.shape[3][1] + 1]) return true;
 		} else if (direction === "left" && this.position === 2) {
@@ -154,7 +154,6 @@ class Jblock extends Block {
 		];
 		this.token = "j";
 		this.color = "box blue";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -281,7 +280,6 @@ class Squareblock extends Block {
 		];
 		this.token = "=";
 		this.color = "box red";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -318,7 +316,6 @@ class Lineblock extends Block {
 		];
 		this.token = "|";
 		this.color = "box orange";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -411,7 +408,6 @@ class Tblock extends Block {
 		];
 		this.token = "t";
 		this.color = "box pink";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -530,7 +526,6 @@ class Sblock extends Block {
 		];
 		this.token = "s";
 		this.color = "box purple";
-		this.position = 1;
 	}
 
 	rotateShape() {
@@ -613,7 +608,6 @@ class Zblock extends Block {
 		];
 		this.token = "z";
 		this.color = "box yellow";
-		this.position = 1;
 	}
 
 	rotateShape() {

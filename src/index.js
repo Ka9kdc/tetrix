@@ -37,8 +37,10 @@ function buildBoard() {
 buildBoard();
 
 function addBlock() {
-	const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
+	// const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
+	const chosenBlock = shapes[1]
 	gameState.currentBlock = new chosenBlock(gameState.board[0].length);
+	gameState.currentBlock.rotateShape()
 }
 
 function moveBlock() {
@@ -240,7 +242,7 @@ function clearboard() {
 		}
 	}
 	addBlock();
-	gameState.score = 100;
+	gameState.score = 0;
 	gameState.level = 1;
 	gameState.lines = 0;
 	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
