@@ -1,6 +1,6 @@
 class Block {
 	constructor(rowLength) {
-		this.rowLength = rowLength;	
+		this.rowLength = rowLength;
 		this.position = 1;
 	}
 	rotateLeft() {
@@ -42,8 +42,7 @@ class Lblock extends Block {
 			this.shape[2][1] = this.shape[1][1];
 			this.shape[3][0] = this.shape[1][0] - 2;
 			this.shape[3][1] = this.shape[1][1];
-		}
-		if (this.position === 2) {
+		} else if (this.position === 2) {
 			this.shape[0][0] = this.shape[1][0] + 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -52,8 +51,7 @@ class Lblock extends Block {
 			this.shape[3][0] = this.shape[1][0];
 			this.shape[3][1] = this.shape[1][1] + 2;
 			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		}
-		if (this.position === 3) {
+		} else if (this.position === 3) {
 			this.shape[0][0] = this.shape[1][0];
 			this.shape[0][1] = this.shape[1][1] - 1;
 			if (this.shape[0][1] < 0) outofBoundslow++;
@@ -61,8 +59,7 @@ class Lblock extends Block {
 			this.shape[2][1] = this.shape[1][1];
 			this.shape[3][0] = this.shape[1][0] + 2;
 			this.shape[3][1] = this.shape[1][1];
-		}
-		if (this.position === 4) {
+		} else if (this.position === 4) {
 			this.shape[0][0] = this.shape[1][0] - 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -81,7 +78,7 @@ class Lblock extends Block {
 				this.shape[i][1] += outofBoundslow;
 			}
 		}
-		console.log(this.shape)
+		console.log(this.shape);
 	}
 
 	checkBelow(board) {
@@ -89,19 +86,16 @@ class Lblock extends Block {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
-		}
-		if (this.position === 2) {
+		} else if (this.position === 2) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[1][1]]) return true;
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 3) {
+		} else if (this.position === 3) {
 			if (!board[this.shape[3][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 4) {
+		} else if (this.position === 4) {
 			if (!board[this.shape[3][0] + 1]) return true;
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
@@ -168,8 +162,7 @@ class Jblock extends Block {
 			this.shape[2][1] = this.shape[1][1];
 			this.shape[3][0] = this.shape[1][0] - 2;
 			this.shape[3][1] = this.shape[1][1];
-		}
-		if (this.position === 2) {
+		} else if (this.position === 2) {
 			this.shape[0][0] = this.shape[1][0] - 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -178,8 +171,7 @@ class Jblock extends Block {
 			this.shape[3][0] = this.shape[1][0];
 			this.shape[3][1] = this.shape[1][1] + 2;
 			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		}
-		if (this.position === 3) {
+		} else if (this.position === 3) {
 			this.shape[0][0] = this.shape[1][0];
 			this.shape[0][1] = this.shape[1][1] + 1;
 			if (this.shape[0][1] >= this.rowLength) outofBoundshigh++;
@@ -187,8 +179,7 @@ class Jblock extends Block {
 			this.shape[2][1] = this.shape[1][1];
 			this.shape[3][0] = this.shape[1][0] + 2;
 			this.shape[3][1] = this.shape[1][1];
-		}
-		if (this.position === 4) {
+		} else if (this.position === 4) {
 			this.shape[0][0] = this.shape[1][0] + 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -214,20 +205,17 @@ class Jblock extends Block {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
-		}
-		if (this.position === 2) {
+		} else if (this.position === 2) {
 			if (!board[this.shape[2][0] + 1]) return true;
 
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 3) {
+		} else if (this.position === 3) {
 			if (!board[this.shape[3][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position === 4) {
+		} else if (this.position === 4) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
@@ -541,8 +529,7 @@ class Sblock extends Block {
 			this.shape[3][0] = this.shape[1][0] - 1;
 			this.shape[3][1] = this.shape[1][1] + 1;
 			if (this.shape[3][1] >= this.rowLength) outofBoundshigh++;
-		}
-		if (this.position % 2 === 0) {
+		} else if (this.position % 2 === 0) {
 			this.shape[0][0] = this.shape[1][0] + 1;
 			this.shape[0][1] = this.shape[1][1];
 			this.shape[2][0] = this.shape[1][0];
@@ -649,8 +636,7 @@ class Zblock extends Block {
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 			if (board[this.shape[1][0] + 1][this.shape[1][1]]) return true;
 			if (board[this.shape[3][0] + 1][this.shape[3][1]]) return true;
-		}
-		if (this.position % 2 === 0) {
+		} else if (this.position % 2 === 0) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
 
@@ -681,4 +667,4 @@ class Zblock extends Block {
 	}
 }
 
-const shapes = [Jblock, Lblock, Squareblock,Lineblock, Tblock, Sblock, Zblock ];
+const shapes = [Jblock, Lblock, Squareblock, Lineblock, Tblock, Sblock, Zblock];

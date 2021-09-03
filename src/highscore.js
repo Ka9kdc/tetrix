@@ -15,13 +15,13 @@ window.addEventListener('load', () =>{
 	} else {
 		scores = [
 			{name: "Highscore",
-		score: 1000},
+		score: 5000},
 		{name: "Highscore",
-		score: 1000},
+		score: 4000},
 		{name: "Highscore",
-		score: 1000},
+		score: 3000},
 		{name: "Highscore",
-		score: 1000},
+		score: 2000},
 		{name: "Highscore",
 		score: 1000}
 		]
