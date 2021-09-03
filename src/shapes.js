@@ -1,6 +1,7 @@
 class Block {
 	constructor(rowLength) {
-		this.rowLength = rowLength;	this.position = 1;
+		this.rowLength = rowLength;	
+		this.position = 1;
 	}
 	rotateLeft() {
 		this.position++;
@@ -36,7 +37,7 @@ class Lblock extends Block {
 		if (this.position === 1) {
 			this.shape[0][0] = this.shape[1][0];
 			this.shape[0][1] = this.shape[1][1] + 1;
-			if (this.shape[0][1] < 0) outofBoundshigh++;
+			if (this.shape[0][1] >= this.rowLength) outofBoundshigh++;
 			this.shape[2][0] = this.shape[1][0] - 1;
 			this.shape[2][1] = this.shape[1][1];
 			this.shape[3][0] = this.shape[1][0] - 2;

@@ -37,10 +37,8 @@ function buildBoard() {
 buildBoard();
 
 function addBlock() {
-	// const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
-	const chosenBlock = shapes[1]
+	const chosenBlock = shapes[Math.floor(Math.random() * shapes.length)];
 	gameState.currentBlock = new chosenBlock(gameState.board[0].length);
-	gameState.currentBlock.rotateShape()
 }
 
 function moveBlock() {
@@ -312,6 +310,7 @@ startButton.addEventListener("click", () => {
 		startButton.innerText = "Restart";
 		startGame();
 	}
+	window.scrollTo(0, document.body.scrollHeight)
 });
 
 homeDiv.addEventListener("click", () => {
