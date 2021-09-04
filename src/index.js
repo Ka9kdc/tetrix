@@ -26,9 +26,10 @@ function buildBoard() {
 	gameState.board = [];
 	const table = document.createElement("table");
 	table.className = "border";
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 22; i++) {
 		const [rowDiv, row] = buildRow();
 		gameState.board.push(row);
+		if (i < 3) rowDiv.className = "hidden";
 		table.append(rowDiv);
 	}
 	appDiv.append(table);
@@ -65,13 +66,10 @@ function startGame() {
 	gameState.level = 1;
 	gameState.lines = 0;
 	gameState.intervalId = setInterval(tick, 1000 / gameState.level);
-	moveBlock();
-	moveBlock();
-	moveBlock();
 }
 
 function removeRender(shape) {
-	if (shape[0] < 0 || shape[1] < 0) return;
+	// if (shape[0] < 3) return;
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
 	cell.className = "";
@@ -79,7 +77,7 @@ function removeRender(shape) {
 }
 
 function addRender(shape) {
-	if (shape[0] < 0 || shape[1] < 0) return;
+	// if (shape[0] < 3) return;
 	const row = document.getElementsByTagName("tr")[shape[0]];
 	const cell = row.getElementsByTagName("td")[shape[1]];
 	cell.className = gameState.currentBlock.color;
@@ -87,13 +85,20 @@ function addRender(shape) {
 }
 
 function rotate(directions) {
+	if (
+		!gameState.currentBlock.checkForClearRotation(
+			gameState.currentBlock.position + 1,
+			gameState.board
+		)
+	)
+		return;
 	for (let j = 0; j < 4; j++) {
 		removeRender(gameState.currentBlock.shape[j]);
 	}
 	if (directions === "left") {
-		gameState.currentBlock.rotateLeft();
+		gameState.currentBlock.rotateLeft(gameState.board);
 	} else {
-		gameState.currentBlock.rotateRight();
+		gameState.currentBlock.rotateRight(gameState.board);
 	}
 	for (let j = 0; j < 4; j++) {
 		addRender(gameState.currentBlock.shape[j]);
@@ -144,7 +149,6 @@ function moveWithArrow(directions) {
 	}
 }
 
-
 function clearRow() {
 	const rowsToClear = [];
 	for (let i = 0; i < gameState.board.length; i++) {
@@ -189,7 +193,7 @@ function gameOver() {
 	let over = false;
 
 	for (let i = 0; i < gameState.board[0].length; i++) {
-		if (gameState.board[0][i] !== "") over = true;
+		if (gameState.board[3][i] !== "") over = true;
 	}
 	if (over) {
 		clearInterval(gameState.intervalId);
@@ -310,7 +314,7 @@ startButton.addEventListener("click", () => {
 		startButton.innerText = "Restart";
 		startGame();
 	}
-	window.scrollTo(0, document.body.scrollHeight)
+	window.scrollTo(0, document.body.scrollHeight);
 });
 
 homeDiv.addEventListener("click", () => {

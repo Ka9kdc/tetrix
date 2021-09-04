@@ -22,13 +22,30 @@ class Lblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 6],
+			[2, 6],
+			[2, 5],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-2, 5],
 		];
 		this.token = "l";
 		this.color = "box green";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[1][0];
+		const y = this.shape[1][1];
+		switch (position) {
+			case 1:
+				return !board[x][y + 1] && !board[x - 2][y];
+			case 2:
+				return !board[x + 1][y] && !board[x][y + 2];
+			case 3:
+				return !board[x][y - 1] && !board[x + 2][y];
+			case 4:
+				return !board[x - 1][y] && !board[x][y - 2];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -78,7 +95,6 @@ class Lblock extends Block {
 				this.shape[i][1] += outofBoundslow;
 			}
 		}
-		console.log(this.shape);
 	}
 
 	checkBelow(board) {
@@ -142,13 +158,30 @@ class Jblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 4],
+			[2, 4],
+			[2, 5],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-2, 5],
 		];
 		this.token = "j";
 		this.color = "box blue";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[1][0];
+		const y = this.shape[1][1];
+		switch (position) {
+			case 1:
+				return !board[x - 1][y] && !board[x - 2][y];
+			case 2:
+				return !board[x][y + 1] && !board[x][y + 2];
+			case 3:
+				return !board[x + 1][y] && !board[x + 2][y];
+			case 4:
+				return !board[x][y - 1] && !board[x][y - 2];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -262,17 +295,17 @@ class Squareblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 4],
+			[1, 4],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-1, 4],
+			[0, 4],
 		];
 		this.token = "=";
 		this.color = "box red";
 	}
 
-	rotateShape() {
-		return this;
+	checkForClearRotation() {
+		return false;
 	}
 
 	checkBelow(board) {
@@ -298,13 +331,29 @@ class Lineblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
+			[3, 5],
+			[2, 5],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-2, 5],
-			[-3, 5],
 		];
 		this.token = "|";
 		this.color = "box orange";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[0][0];
+		const y = this.shape[0][1];
+		switch (position) {
+			case 1:
+			case 3:
+				return !board[x + 1][y] && !board[x + 2][y] && !board[x + 3][y];
+			case 2:
+				return !board[x][y + 1] && !board[x][y + 2] && !board[x][y + 3];
+			case 4:
+				return !board[x][y - 1] && !board[x][y - 2] && !board[x][y - 3];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -390,13 +439,30 @@ class Tblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 4],
+			[1, 4],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[0, 6],
+			[1, 6],
 		];
 		this.token = "t";
 		this.color = "box pink";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[1][0];
+		const y = this.shape[1][1];
+		switch (position) {
+			case 1:
+				return !board[x][y + 1];
+			case 2:
+				return !board[x + 1][y];
+			case 3:
+				return !board[x][y - 1];
+			case 4:
+				return !board[x - 1][y];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -508,13 +574,28 @@ class Sblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 4],
+			[1, 4],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-1, 6],
+			[0, 6],
 		];
 		this.token = "s";
 		this.color = "box purple";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[1][0];
+		const y = this.shape[1][1];
+		switch (position) {
+			case 1:
+			case 3:
+				return !board[x - 1][y] && !board[x - 1][y + 1];
+			case 2:
+			case 4:
+				return !board[x - 1][y - 1] && !board[x + 1][y];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -589,13 +670,28 @@ class Zblock extends Block {
 	constructor(rowLength) {
 		super(rowLength);
 		this.shape = [
-			[0, 6],
+			[1, 6],
+			[1, 5],
 			[0, 5],
-			[-1, 5],
-			[-1, 4],
+			[0, 4],
 		];
 		this.token = "z";
 		this.color = "box yellow";
+	}
+
+	checkForClearRotation(position, board) {
+		const x = this.shape[1][0];
+		const y = this.shape[1][1];
+		switch (position) {
+			case 1:
+			case 3:
+				return !board[x - 1][y] && !board[x - 1][y - 1];
+			case 2:
+			case 4:
+				return !board[x - 1][y + 1] && !board[x + 1][y];
+			default:
+				return true;
+		}
 	}
 
 	rotateShape() {
@@ -639,7 +735,6 @@ class Zblock extends Block {
 		} else if (this.position % 2 === 0) {
 			if (!board[this.shape[0][0] + 1]) return true;
 			if (board[this.shape[0][0] + 1][this.shape[0][1]]) return true;
-
 			if (board[this.shape[2][0] + 1][this.shape[2][1]]) return true;
 		}
 
@@ -650,7 +745,6 @@ class Zblock extends Block {
 		if (direction === "left" && this.position % 2 === 0) {
 			if (board[this.shape[0][0]][this.shape[0][1] - 1]) return true;
 			if (board[this.shape[1][0]][this.shape[1][1] - 1]) return true;
-
 			if (board[this.shape[3][0]][this.shape[3][1] - 1]) return true;
 		} else if (direction === "right" && this.position % 2 === 0) {
 			if (board[this.shape[0][0]][this.shape[0][1] + 1]) return true;
